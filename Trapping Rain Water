@@ -1,0 +1,29 @@
+def trap(self, height: List[int]) -> int:
+        sz = len(height)
+        if sz<=2:
+            return 0
+        
+        lt = [0]*sz
+        rt = [0]*sz
+
+        lt[0] = height[0]
+        rt[sz-1] = height[sz-1]
+        mx = 0
+        mr = 0
+        for i in range(1, sz):
+            mx = max(height[i-1], mx)
+            lt[i] = mx
+
+            mr = max(height[sz-i], mr)
+            rt[sz-1-i] = mr
+        
+        ans = 0
+        for i in range(sz):
+            if lt[i]>rt[i]:
+                ans += max((rt[i]-height[i]), 0)
+            else:
+                ans += max((lt[i]-height[i]), 0)
+
+        return ans
+
+# link for Leet code problem : https://leetcode.com/problems/trapping-rain-water/description/
